@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres
+    container_name: db-database
+    restart: "no"
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=rastape
+      - POSTGRES_DB=rastape-db
+    volumes:
+      - pgdata:/data/postgres
+
+  # redis:
+  #   image: redis:alpine
+  #   container_name: db-redis
+  #   restart: "no"
+  #   ports:
+  #     - 6379:6379
+
+  # app:
+  #   build: .
+  #   container_name: db-api
+  #   restart: "no"
+  #   ports:
+  #     - 3333:3333
+  #     - 9229:9229
+  #   volumes:
+  #     - .:/usr/app
+  #   links:
+  #     - database
+  #     - redis
+  #   depends_on:
+  #     - database
+  #     - redis
+
+volumes:
+  pgdata:
+    driver: local
